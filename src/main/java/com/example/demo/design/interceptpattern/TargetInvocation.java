@@ -30,6 +30,7 @@ public class TargetInvocation {
     public Response invoke() {
         if (interceptors.hasNext()) {
             Interceptor interceptor = interceptors.next();
+            // 此处如果去掉return，按照书中来，target会被调用多次。interceptor.intercept(this);
             return interceptor.intercept(this);
         }
         return target.execute(request);
