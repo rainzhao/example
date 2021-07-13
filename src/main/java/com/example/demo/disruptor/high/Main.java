@@ -36,8 +36,6 @@ public class Main {
         // 2 handleEventsWith
         disruptor.handleEventsWith(new Handler());
 
-        disruptor.start();
-
         RingBuffer<Trade> ringBuffer = disruptor.getRingBuffer();
 
         CountDownLatch countDownLatch = new CountDownLatch(1);

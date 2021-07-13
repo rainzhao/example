@@ -43,6 +43,16 @@ public class RpcClient {
 		return collector.send(output);
 	}
 
+	public void sendTest(String type, RequestInfo payload) {
+		if (!started) {
+			connect(MAX_RETRY);
+			started = true;
+		}
+		String requestId = RequestId.next();
+		MessageOutput output = new MessageOutput(requestId, type, payload);
+		collector.sendAsync(output);
+	}
+
 	public void init() {
 		bootstrap = new Bootstrap();
 		group = new NioEventLoopGroup(1);

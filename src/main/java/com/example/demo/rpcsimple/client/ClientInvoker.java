@@ -38,22 +38,24 @@ public class ClientInvoker<T> implements InvocationHandler {
         }
         requestInfo.setParams(params);
         requestInfo.setArgs(args);
-        RpcFuture<Object> future = rpcClient.sendAsync("type", requestInfo);
+        //RpcFuture<Object> future = rpcClient.sendAsync("type", requestInfo);
 
-        try {
-            String responseStr = (String) future.get();
+        rpcClient.sendTest("type", requestInfo);
 
-            RequestInfo response = JSON.parseObject(responseStr, RequestInfo.class);
-
-            Object o1 = JSON.parseObject(response.getData(), method.getReturnType());
-
-            return o1;
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String responseStr = (String) future.get();
+//            String responseStr = "";
+//            RequestInfo response = JSON.parseObject(responseStr, RequestInfo.class);
+//
+//            Object o1 = JSON.parseObject(response.getData(), method.getReturnType());
+//
+//            return o1;
+//
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
 
         return null;
     }

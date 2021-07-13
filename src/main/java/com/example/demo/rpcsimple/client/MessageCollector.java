@@ -6,6 +6,8 @@ import com.example.demo.rpcsimple.common.MessageOutput;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.concurrent.DefaultPromise;
+import io.netty.util.concurrent.Promise;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +20,8 @@ public class MessageCollector extends ChannelInboundHandlerAdapter {
 
 	private final static Logger LOG = LoggerFactory.getLogger(MessageCollector.class);
 	private ConcurrentMap<String, RpcFuture<?>> pendingTasks = new ConcurrentHashMap<>();
+
+	private ConcurrentMap<String, Promise<MessageInput>> promiseConcurrentMap = new ConcurrentHashMap<>();
 	private Throwable ConnectionClosed = new Exception("rpc connection not active error");
 
 	private RpcClient client;
@@ -58,15 +62,30 @@ public class MessageCollector extends ChannelInboundHandlerAdapter {
 		return future;
 	}
 
+	public void sendAsync(MessageOutput output) {
+		Promise<MessageInput> agent = new DefaultPromise<>(context.executor());
+		agent.addListener(future -> {
+			Object object = future.get();
+			System.out.println(object);
+		});
+		promiseConcurrentMap.put(output.getRequestId(), agent);
+		context.writeAndFlush(output);
+	}
+
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		if (!(msg instanceof MessageInput)) {
 			return;
 		}
 		MessageInput input = (MessageInput) msg;
-		String payload = input.getPayload();
-		RpcFuture<Object> future = (RpcFuture<Object>) pendingTasks.remove(input.getRequestId());
-		future.success(input.getPayload());
+//		String payload = input.getPayload();
+//		RpcFuture<Object> future = (RpcFuture<Object>) pendingTasks.remove(input.getRequestId());
+//		future.success(input.getPayload());
+
+		Promise<MessageInput> remove = promiseConcurrentMap.remove(input.getRequestId());
+		if (remove != null) {
+			remove.trySuccess(input);
+		}
 	}
 
 	public void channelRead11(ChannelHandlerContext ctx, Object msg) throws Exception {
