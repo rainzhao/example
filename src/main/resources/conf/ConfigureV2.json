@@ -1,38 +1,38 @@
-{
-  "commonConf": {
-    "registerUrl": "newdev-zk1.hellobike.cn:2181,newdev-zk2.hellobike.cn:2181,newdev-zk3.hellobike.cn:2181",
-    "configCenterUrl": "newdev-zk1.hellobike.cn:2181,newdev-zk2.hellobike.cn:2181,newdev-zk3.hellobike.cn:2181",
-    "group": "dev"
-  },
-  "serverConf": {
-    "tag": "localTest",
-    "serviceName": "AppBosEHRService",
-    "protocol": "json",
-    "port": 38222,
-    "threadPoolSize": 500,
-    "initializer": "com.hellobike.soa.registry.spring.initializer.DefaultServiceInitializer"
-  },
-  "clientConfs": [
-    {
-      "clientName": "AppHellobikeConfigService",
-      "threadPoolSize": 10,
-      "protocol": "json",
-      "group": "dev",
-      "timeoutInMillis": 30000
-    },
-    {
-      "clientName": "InternalAuthService",
-      "threadPoolSize": 10,
-      "protocol": "json",
-      "group": "dev",
-      "timeoutInMillis": 30000
-    },
-    {
-      "clientName": "AppRentWorkflowService",
-      "threadPoolSize": 10,
-      "protocol": "json",
-      "group": "dev",
-      "timeoutInMillis": 30000
-    }
-  ]
-}
+//{
+//  "commonConf": {
+//    "registerUrl": "newdev-zk1.hellobike.cn:2181,newdev-zk2.hellobike.cn:2181,newdev-zk3.hellobike.cn:2181",
+//    "configCenterUrl": "newdev-zk1.hellobike.cn:2181,newdev-zk2.hellobike.cn:2181,newdev-zk3.hellobike.cn:2181",
+//    "group": "dev"
+//  },
+//  "serverConf": {
+//    "tag": "localTest",
+//    "serviceName": "AppBosEHRService",
+//    "protocol": "json",
+//    "port": 38222,
+//    "threadPoolSize": 500,
+//    "initializer": "com.hellobike.soa.registry.spring.initializer.DefaultServiceInitializer"
+//  },
+//  "clientConfs": [
+//    {
+//      "clientName": "AppHellobikeConfigService",
+//      "threadPoolSize": 10,
+//      "protocol": "json",
+//      "group": "dev",
+//      "timeoutInMillis": 30000
+//    },
+//    {
+//      "clientName": "InternalAuthService",
+//      "threadPoolSize": 10,
+//      "protocol": "json",
+//      "group": "dev",
+//      "timeoutInMillis": 30000
+//    },
+//    {
+//      "clientName": "AppRentWorkflowService",
+//      "threadPoolSize": 10,
+//      "protocol": "json",
+//      "group": "dev",
+//      "timeoutInMillis": 30000
+//    }
+//  ]
+//}

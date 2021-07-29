@@ -4,8 +4,10 @@ import com.example.demo.rpcsimple.common.ContextConf;
 import com.example.demo.rpcsimple.server.RpcServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
+@ImportResource(locations = {"classpath:spring-all.xml"})
 public class DemoApplication {
 
     public static void main(String[] args) throws Exception {
